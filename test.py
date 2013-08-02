@@ -142,11 +142,11 @@ def test_stateMachineTransTableNotExists():
     except IOError:
         assert True
 
-#def test_stateMachineWrongTable0():
-    #try:
-        #SM = StateMachine("wrong_table0.txt")
-    #except IOError:
-        #assert True
+def test_stateMachineWrongTable0():
+    try:
+        SM = StateMachine("wrong_table0.txt")
+    except IOError:
+        assert True
 
 #def test_stateMachineWrongTable1():
     #try:

@@ -1,0 +1,4 @@
+A event0  not-exist
+B event1 C
+C event2 D
+D endEvent End
