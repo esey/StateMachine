@@ -1,0 +1,9 @@
+This is an attempt to implement a lightweight state machine.
+Some of the goals of the project:
+
+- easy initialization (i.e. avoid complex registration procedures)
+- transitions are defined in a data-driven flavour (i.e. a configuration file)
+- the states will produce "events" that are used for determining which is the next status
+  (i.e. a state does not know anything about the state machine, but it knows which events to produce)
+
+
