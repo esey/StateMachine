@@ -143,22 +143,17 @@ def test_stateMachineTransTableNotExists():
         assert True
 
 def test_stateMachineWrongTable0():
-    #try:
-    SM = StateMachine("wrong_table0.txt")
-    #except IOError:
-    #    assert True
+    try:
+        SM = StateMachine("wrong_table0.txt")
+    except SystemExit:
+        assert True
 
 def test_stateMachineWrongTable1():
     try:
         SM = StateMachine("wrong_table1.txt")
-    except IOError:
+    except SystemExit:
         assert True
 
-def test_stateMachineWrongTable2():
-    try:
-        SM = StateMachine("wrong_table2.txt")
-    except IOError:
-        assert True
 
 
 def test_stateMachineRun():
@@ -178,3 +173,26 @@ def test_stateMachineRun():
     SM.addStateInstance(stateD)
 
     assert SM.runAll() == None
+
+def test_missingEvent():
+    
+    SM = StateMachine("wrong_table2.txt")
+
+    stateStart = Start()
+    stateA = A()
+    stateB = B()
+    stateC = C()
+    stateD = D()
+
+    SM.addStateInstance(stateStart)
+    SM.addStateInstance(stateA)
+    SM.addStateInstance(stateB)
+    SM.addStateInstance(stateC)
+    SM.addStateInstance(stateD)
+
+    try:
+         SM.runAll()
+         assert False
+    except SystemExit:
+        assert True
+
