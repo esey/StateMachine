@@ -59,7 +59,8 @@ class D(State):
     def run(self):
         return None
 
-#---------------------------------------------------------------------
+# End of test classes
+#------------------------------------------------------------------------------
 
 def test_emptyState():
     state = State()
@@ -140,6 +141,25 @@ def test_stateMachineTransTableNotExists():
         SM = StateMachine("not-existing-file.txt")
     except IOError:
         assert True
+
+#def test_stateMachineWrongTable0():
+    #try:
+        #SM = StateMachine("wrong_table0.txt")
+    #except IOError:
+        #assert True
+
+#def test_stateMachineWrongTable1():
+    #try:
+        #SM = StateMachine("wrong_table1.txt")
+    #except IOError:
+        #assert True
+
+def test_stateMachineWrongTable2():
+    try:
+        SM = StateMachine("wrong_table2.txt")
+    except IOError:
+        assert True
+
 
 def test_stateMachineRun():
 
