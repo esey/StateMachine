@@ -175,7 +175,7 @@ def test_stateMachineRun():
     assert SM.runAll() == None
 
 def test_missingEvent():
-    
+
     SM = StateMachine("wrong_table2.txt")
 
     stateStart = Start()

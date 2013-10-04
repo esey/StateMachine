@@ -30,6 +30,7 @@ class StateMachine:
 
             for event_id in self.transitions[state_id].keys():
                 next_state_id = self.transitions[state_id][event_id]
+                print "event", event_id, "->", next_state_id
                 if next_state_id != "End":
                     if not next_state_id in self.transitions:
                         print "ERROR: state ", next_state_id, "not defined in transitions table"
@@ -77,6 +78,7 @@ class StateMachine:
             if event != None:
                 state = self.nextState(state.id, event.id)
             else:
+                print "\"None\" event occurred. Terminating the state machine..."
                 return None
 
 
