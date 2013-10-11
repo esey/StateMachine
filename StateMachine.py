@@ -70,6 +70,7 @@ class StateMachine:
 
     def runAll(self):
 
+        print self.stateByName.keys()
         print self.stateByName
 
         if not "Start" in self.stateByName:
