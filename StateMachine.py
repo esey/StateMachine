@@ -70,6 +70,8 @@ class StateMachine:
 
     def runAll(self):
 
+        print self.stateByName
+
         if not "Start" in self.stateByName:
             print "ERROR: \"Start\" state not defined"
             exit(1)
