@@ -18,23 +18,25 @@ class StateMachine:
                     self.transitions[state_id] = {}
                 self.transitions[state_id][event_id] = new_state_id
 
-        print self.transitions
-
 
     def verifyTransitions(self):
 
         print self.transitions
 
         for state_id in self.transitions.keys():
-            print "Checking... ", state_id
+            print "Checking state \"%s\"" % state_id
 
             for event_id in self.transitions[state_id].keys():
                 next_state_id = self.transitions[state_id][event_id]
-                print "event", event_id, "->", next_state_id
                 if next_state_id != "End":
                     if not next_state_id in self.transitions:
+                        print " - transition: event \"%s\" -> state \"%s\"" % (event_id, next_state_id)
+                        #print "event", event_id, "->", next_state_id
                         print "ERROR: state ", next_state_id, "not defined in transitions table"
                         exit(1)
+                    else:
+                        print " - transition: event \"%s\" -> state \"%s\"" % (event_id, next_state_id)
+                        #print "event", event_id, "->", next_state_id, "OK"
 
 
     def nextState(self, state_id, event_id):
@@ -52,7 +54,7 @@ class StateMachine:
 
             next_state = state_transitions[event_id]
             if not next_state in self.stateByName:
-                print "cannot find new state"
+                print "cannot find new state", next_state
                 exit(1)
             return self.stateByName[next_state]
 
