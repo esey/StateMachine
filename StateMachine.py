@@ -79,7 +79,7 @@ class StateMachine:
 
         state = self.stateByName["Start"]
         while state != None:
-            print "Entering into state: %s", state.id
+            print "Moving to new state: %s" % state.id
             event = state.run()
             if event != None:
                 state = self.nextState(state.id, event.id)
