@@ -101,13 +101,14 @@ class StateMachine:
             exit(1)
 
         state = self.state_by_name["Start"]
-        print state
 
         while state != None:
 
             #log.info("Moving to new state: %s" % state.id)
 
             event = state.run()
+
+            print event
 
             if event != None:
                 log.debug("New event: %s" % event.id)
