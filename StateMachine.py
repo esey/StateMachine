@@ -64,7 +64,7 @@ class StateMachine:
             exit(1)
 
 
-    def addStateInstance(self, state_instance):
+    def add_state_instance(self, state_instance):
         self.stateByName[state_instance.id] = state_instance
 
 

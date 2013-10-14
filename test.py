@@ -166,11 +166,11 @@ def test_stateMachineRun():
     stateC = C()
     stateD = D()
 
-    SM.addStateInstance(stateStart)
-    SM.addStateInstance(stateA)
-    SM.addStateInstance(stateB)
-    SM.addStateInstance(stateC)
-    SM.addStateInstance(stateD)
+    SM.add_state_instance(stateStart)
+    SM.add_state_instance(stateA)
+    SM.add_state_instance(stateB)
+    SM.add_state_instance(stateC)
+    SM.add_state_instance(stateD)
 
     assert SM.runAll() == None
 
@@ -184,11 +184,11 @@ def test_missingEvent():
     stateC = C()
     stateD = D()
 
-    SM.addStateInstance(stateStart)
-    SM.addStateInstance(stateA)
-    SM.addStateInstance(stateB)
-    SM.addStateInstance(stateC)
-    SM.addStateInstance(stateD)
+    SM.add_state_instance(stateStart)
+    SM.add_state_instance(stateA)
+    SM.add_state_instance(stateB)
+    SM.add_state_instance(stateC)
+    SM.add_state_instance(stateD)
 
     try:
          SM.runAll()
