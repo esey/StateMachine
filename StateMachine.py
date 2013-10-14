@@ -88,6 +88,8 @@ class StateMachine:
 
             event = state.run()
 
+            log.debug("New event: %s" % event.id)
+
             if event != None:
                 state = self.next_state(state.id, event.id)
             else:
