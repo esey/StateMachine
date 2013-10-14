@@ -72,35 +72,7 @@ class StateMachine:
         self.state_by_name[state_instance.id] = state_instance
 
 
-    def run_all(self):
-
-        # PLEASE WRITE APPROPRIATE FUNCTIONS
-        #print self.stateByName.keys()
-        #print self.stateByName
-
-        if not "Start" in self.state_by_name:
-            log.info("ERROR: \"Start\" state not defined")
-            exit(1)
-
-        state = self.state_by_name["Start"]
-
-        while state != None:
-
-            #log.info("Moving to new state: %s" % state.id)
-
-            event = state.run()
-
-            if event != None:
-                log.debug("New event: %s" % event.id)
-
-            if event != None:
-                state = self.next_state(state.id, event.id)
-            else:
-                log.info("\"None\" event occurred. Terminating the state machine...")
-                return None
-
-
-    def verify_states(self):
+    def verify_state_instances(self):
 
         log.info("Verifying states instantiation.")
 
@@ -118,6 +90,36 @@ class StateMachine:
                     log.critical("Destination state %s not instantiated" % nest_state_id)
                     exit(1)
 
+    def run_all(self):
+
+        # PLEASE WRITE APPROPRIATE FUNCTIONS
+        #print self.stateByName.keys()
+        #print self.stateByName
+
+        if not "Start" in self.state_by_name:
+            log.info("ERROR: \"Start\" state not defined")
+            exit(1)
+
+        state = self.state_by_name["Start"]
+        print state
+
+        while state != None:
+
+            #log.info("Moving to new state: %s" % state.id)
+
+            event = state.run()
+
+            if event != None:
+                log.debug("New event: %s" % event.id)
+
+            if event != None:
+                state = self.next_state(state.id, event.id)
+            else:
+                log.info("\"None\" event occurred. Terminating the state machine...")
+                return None
+
+
+
     def __init__(self, trans_table_file):
 
         log.info("State machine initialization")
@@ -131,5 +133,5 @@ class StateMachine:
         self.verify_transitions()
         log.info("Verification SUCCESSFUL.")
 
-        print self.state_by_name.keys()
+        #print self.state_by_name.keys()
         print self.state_by_name
