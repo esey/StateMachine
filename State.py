@@ -10,3 +10,4 @@ class State:
 
     def produce_event(self, event):
         log.info("New event: %s " % event.id)
+        return event
