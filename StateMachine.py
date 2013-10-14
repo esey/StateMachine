@@ -72,6 +72,7 @@ class StateMachine:
 
     def run_all(self):
 
+        # PLEASE WRITE APPROPRIATE FUNCTIONS
         #print self.stateByName.keys()
         #print self.stateByName
 
