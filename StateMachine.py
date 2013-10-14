@@ -42,12 +42,14 @@ class StateMachine:
 
     def next_state(self, state_id, event_id):
 
+        log.debug("State: %s" % state_id)
         if not state_id in self.transitions:
             log.critical("Cannot find state %s in transactions table" % state_id)
             exit(1)
 
         state_transitions = self.transitions[state_id]
 
+        log.debug("Event: %s" % event_id)
         if event_id == None:
             return None
 
@@ -88,7 +90,8 @@ class StateMachine:
 
             event = state.run()
 
-            log.debug("New event: %s" % event.id)
+            if Event != None:
+                log.debug("New event: %s" % event.id)
 
             if event != None:
                 state = self.next_state(state.id, event.id)
