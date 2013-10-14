@@ -131,5 +131,5 @@ class StateMachine:
         self.verify_transitions()
         log.info("Verification SUCCESSFUL.")
 
-        print self.stateByName.keys()
-        print self.stateByName
+        print self.state_by_name.keys()
+        print self.state_by_name
