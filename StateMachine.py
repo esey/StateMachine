@@ -130,3 +130,6 @@ class StateMachine:
         log.info("Verifying transitions...")
         self.verify_transitions()
         log.info("Verification SUCCESSFUL.")
+
+        print self.stateByName.keys()
+        print self.stateByName
