@@ -66,6 +66,7 @@ class StateMachine:
 
 
     def add_state_instance(self, state_instance):
+        log.debug("Registering state %s instance" % state_instance.id)
         self.state_by_name[state_instance.id] = state_instance
 
 
@@ -100,14 +101,14 @@ class StateMachine:
             log.info("Checking state \"%s\"" % state_id)
 
             if state_id not in self.state_by_name:
-                log.critical("State %s not present int transition table" % state_id)
+                log.critical("Source state %s not instantiated" % state_id)
                 exit(1)
 
             for event_id in self.transitions[state_id].keys():
                 next_state_id = self.transitions[state_id][event_id]
 
                 if next_state_id not in self.state_by_name:
-                    log.critical("State %s not present int transition table" % nest_state_id)
+                    log.critical("Destination state %s not instantiated" % nest_state_id)
                     exit(1)
         log.info("Verify.")
 
