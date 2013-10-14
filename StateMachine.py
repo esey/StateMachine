@@ -90,7 +90,7 @@ class StateMachine:
 
             event = state.run()
 
-            if Event != None:
+            if event != None:
                 log.debug("New event: %s" % event.id)
 
             if event != None:
