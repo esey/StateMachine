@@ -108,8 +108,6 @@ class StateMachine:
 
             event = state.run()
 
-            print event
-
             if event != None:
                 log.debug("New event: %s" % event.id)
 
@@ -133,6 +131,3 @@ class StateMachine:
         log.info("Verifying transitions...")
         self.verify_transitions()
         log.info("Verification SUCCESSFUL.")
-
-        #print self.state_by_name.keys()
-        print self.state_by_name
