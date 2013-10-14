@@ -48,7 +48,7 @@ class StateMachine:
 
         state_transitions = self.transitions[state_id]
 
-        if event_id is None:
+        if event_id == None:
             return None
 
         if event_id in state_transitions:
