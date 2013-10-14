@@ -97,9 +97,10 @@ class StateMachine:
 
     def verify_states(self):
 
-        log.info("Verifying is states are instantiated.")
+        log.info("Verifying states instantiation.")
+
         for state_id in self.transitions.keys():
-            log.info("Checking state \"%s\"" % state_id)
+            log.info("Checking source state \"%s\"" % state_id)
 
             if state_id not in self.state_by_name:
                 log.critical("Source state %s not instantiated" % state_id)
@@ -107,11 +108,10 @@ class StateMachine:
 
             for event_id in self.transitions[state_id].keys():
                 next_state_id = self.transitions[state_id][event_id]
-
+                log.info("Checking destination state \"%s\"" % next_state_id)
                 if next_state_id not in self.state_by_name:
                     log.critical("Destination state %s not instantiated" % nest_state_id)
                     exit(1)
-        log.info("Verify.")
 
     def __init__(self, trans_table_file):
 
@@ -122,6 +122,6 @@ class StateMachine:
 
         self.load_transitions(trans_table_file)
 
-        log.info("Verifying state machine...")
+        log.info("Verifying transitions...")
         self.verify_transitions()
         log.info("Verification SUCCESSFUL.")
