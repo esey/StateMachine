@@ -1,9 +1,12 @@
+import logging
+log = logging.getLogger()
+
 import string
 
 class StateMachine:
 
 
-    def loadTransitions(self, filename):
+    def load_transitions(self, filename):
 
         self.transitions = {}
 
@@ -19,84 +22,104 @@ class StateMachine:
                 self.transitions[state_id][event_id] = new_state_id
 
 
-    def verifyTransitions(self):
+    def verify_transitions(self):
 
-        print self.transitions
+        #print self.transitions
 
         for state_id in self.transitions.keys():
-            print "Checking state \"%s\"" % state_id
+            log.info("Checking state \"%s\"" % state_id)
 
             for event_id in self.transitions[state_id].keys():
                 next_state_id = self.transitions[state_id][event_id]
                 if next_state_id != "End":
                     if not next_state_id in self.transitions:
-                        print " - transition: event \"%s\" -> state \"%s\"" % (event_id, next_state_id)
-                        #print "event", event_id, "->", next_state_id
-                        print "ERROR: state ", next_state_id, "not defined in transitions table"
+                        log.critical(" - transition: event \"%s\" -> state \"%s\"" % (event_id, next_state_id))
+                        log.critical("ERROR: state ", next_state_id, "not defined in transitions table")
                         exit(1)
                     else:
-                        print " - transition: event \"%s\" -> state \"%s\"" % (event_id, next_state_id)
-                        #print "event", event_id, "->", next_state_id, "OK"
+                        log.info(" - transition: event \"%s\" -> state \"%s\"" % (event_id, next_state_id))
 
 
-    def nextState(self, state_id, event_id):
+    def next_state(self, state_id, event_id):
 
         if not state_id in self.transitions:
-            print "cannot find transaction table"
+            log.critical("Cannot find state %s in transactions table" % state_id)
             exit(1)
 
         state_transitions = self.transitions[state_id]
 
-        if event_id == None:
+        if event_id is None:
             return None
 
         if event_id in state_transitions:
 
             next_state = state_transitions[event_id]
-            if not next_state in self.stateByName:
-                print "cannot find new state", next_state
+            if not next_state in self.state_by_name:
+                log.critical("cannot find new state %s" % next_state)
                 exit(1)
-            return self.stateByName[next_state]
+            return self.state_by_name[next_state]
 
         else:
 
-            print "ERROR: transition not specified for event: ", event_id
+            log.critical("ERROR: transition not specified for event: %s" % event_id)
             exit(1)
 
 
     def add_state_instance(self, state_instance):
-        self.stateByName[state_instance.id] = state_instance
+        self.state_by_name[state_instance.id] = state_instance
 
 
-    def runAll(self):
+    def run_all(self):
 
-        print self.stateByName.keys()
-        print self.stateByName
+        #print self.stateByName.keys()
+        #print self.stateByName
 
-        if not "Start" in self.stateByName:
-            print "ERROR: \"Start\" state not defined"
+        if not "Start" in self.state_by_name:
+            log.info("ERROR: \"Start\" state not defined")
             exit(1)
 
-        state = self.stateByName["Start"]
+        state = self.state_by_name["Start"]
+
         while state != None:
-            print "Moving to new state: %s" % state.id
+
+            #log.info("Moving to new state: %s" % state.id)
+
             event = state.run()
+
             if event != None:
-                state = self.nextState(state.id, event.id)
+                state = self.next_state(state.id, event.id)
             else:
-                print "\"None\" event occurred. Terminating the state machine..."
+                log.info("\"None\" event occurred. Terminating the state machine...")
                 return None
 
 
+    def verify_states(self):
+
+        log.info("Verifying is states are instantiated.")
+        for state_id in self.transitions.keys():
+            log.info("Checking state \"%s\"" % state_id)
+
+            if state_id not in self.state_by_name:
+                log.critical("State %s not present int transition table" % state_id)
+                exit(1)
+
+            for event_id in self.transitions[state_id].keys():
+                next_state_id = self.transitions[state_id][event_id]
+
+                if next_state_id not in self.state_by_name:
+                    log.critical("State %s not present int transition table" % nest_state_id)
+                    exit(1)
+        log.info("Verify.")
+
     def __init__(self, trans_table_file):
 
-        print "State machine initialization"
+        log.info("State machine initialization")
 
         self.transitions = {}
-        self.stateByName = {}
+        self.state_by_name = {}
 
-        self.loadTransitions(trans_table_file)
+        self.load_transitions(trans_table_file)
 
-        print "Verifying state machine..."
-        self.verifyTransitions()
-        print "Verification done."
+        log.info("Verifying state machine...")
+        self.verify_transitions()
+        log.info("Verification SUCCESSFUL.")

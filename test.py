@@ -172,7 +172,7 @@ def test_stateMachineRun():
     SM.add_state_instance(stateC)
     SM.add_state_instance(stateD)
 
-    assert SM.runAll() == None
+    assert SM.run_all() == None
 
 def test_missingEvent():
 
@@ -191,7 +191,7 @@ def test_missingEvent():
     SM.add_state_instance(stateD)
 
     try:
-         SM.runAll()
+         SM.run_all()
          assert False
     except SystemExit:
         assert True
