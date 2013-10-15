@@ -24,8 +24,6 @@ class StateMachine:
 
     def verify_transitions(self):
 
-        #print self.transitions
-
         for state_id in self.transitions.keys():
             log.info("Checking state \"%s\"" % state_id)
 
@@ -92,10 +90,6 @@ class StateMachine:
 
     def run_all(self):
 
-        # PLEASE WRITE APPROPRIATE FUNCTIONS
-        #print self.stateByName.keys()
-        #print self.stateByName
-
         if not "Start" in self.state_by_name:
             log.info("ERROR: \"Start\" state not defined")
             exit(1)
@@ -104,17 +98,15 @@ class StateMachine:
 
         while state != None:
 
-            #log.info("Moving to new state: %s" % state.id)
-
             event = state.run()
 
             if event != None:
-                log.debug("New event: %s" % event.id)
-
-            if event != None:
+                log.debug("State %s returned event: %s" % (state.id, event.id))
+                old_state = state
                 state = self.next_state(state.id, event.id)
+                log.debug("%s -> %s -> %s" % (old_state.id, event.id, state.id))
             else:
-                log.info("\"None\" event occurred. Terminating the state machine...")
+                log.info("State %s returned \"None\" event. Terminating the state machine..." % state.id)
                 return None
 
 
@@ -128,6 +120,6 @@ class StateMachine:
 
         self.load_transitions(trans_table_file)
 
-        log.info("Verifying transitions...")
+        log.info("Verifying transitions coherence...")
         self.verify_transitions()
-        log.info("Verification SUCCESSFUL.")
+        log.info("Transitions are coherent.")
